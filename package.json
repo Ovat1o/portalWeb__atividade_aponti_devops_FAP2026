@@ -1,0 +1,16 @@
+{
+  "name": "portal-web",
+  "version": "1.0.0",
+  "scripts": {
+    "lint": "eslint js",
+    "format": "prettier --check .",
+    "build": "node scripts/compactar.js",
+    "sitemap": "node scripts/gerar-sitemap.js",
+    "stats": "node scripts/gerar-estatisticas.js"
+  },
+  "devDependencies": {
+    "eslint": "^9.15.0",
+    "prettier": "^3.3.3",
+    "archiver": "^7.0.1"
+  }
+}
