@@ -1,0 +1,33 @@
+name: Pipeline 2 - Gerar Sitemap
+
+on:
+  schedule:
+    - cron: "0 2 * * *"
+  workflow_dispatch: # permite disparar manualmente para testes
+
+jobs:
+  gerar-sitemap:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write # necessário para o job poder dar push no repositório
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Gerar sitemap
+        run: node gerar-sitemap.js
+
+      - name: Commitar e enviar (push) alterações
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add sitemap.xml
+          git diff --staged --quiet && echo "Nenhuma alteração no sitemap." || git commit -m "chore: atualiza sitemap.xml automaticamente"
+          git push

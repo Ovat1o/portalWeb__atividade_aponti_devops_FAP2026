@@ -1,0 +1,36 @@
+name: Pipeline 3 - Gerenciar Issues
+
+# Executa sempre que uma nova Issue for aberta
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  gerenciar-issue:
+    runs-on: ubuntu-latest
+
+    permissions:
+      issues: write # necessário para adicionar labels e assignees
+
+    steps:
+      - name: Adicionar label "documentation"
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: ["documentation"]
+            });
+
+      - name: Atribuir responsável
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.addAssignees({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              assignees: ["usuario-responsavel"]
+            });
