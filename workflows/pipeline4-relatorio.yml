@@ -1,0 +1,30 @@
+name: Gerar Relatório (Manual)
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  relatorio:
+  runs-on: ubuntu-latest
+
+  steps:
+    - name: Checkout do código
+      uses: actions/checkout@v4
+
+    - name: Configurar Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Instalar dependências
+      run: npm ci
+
+    - name: Executar script de estatíticas
+      run: npm run stats
+
+    - name: Publicar relatório como artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: relatorio-estaticas
+        path: reports/estatisticas.json
+        if-no-files-found: warn
