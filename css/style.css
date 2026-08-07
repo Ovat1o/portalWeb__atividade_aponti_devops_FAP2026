@@ -1,13 +1,9 @@
-body{
+body {
+  font-family: Arial;
 
-    font-family: Arial;
-
-    margin:40px;
-
+  margin: 40px;
 }
 
-h1{
-
-    color:#0055aa;
-
+h1 {
+  color: #0055aa;
 }

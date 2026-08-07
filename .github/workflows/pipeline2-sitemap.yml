@@ -3,7 +3,7 @@ name: Pipeline 2 - Gerador de Sitemap
 on:
   schedule:
     # Executa todos os dias as 23:00 (Nota: o cron usa o fuso horario UTC)
-    - cron: '0 23 * * *'
+    - cron: "0 23 * * *"
 
 jobs:
   atualizar-sitemap:
@@ -18,7 +18,7 @@ jobs:
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Instalar dependencias
         run: npm install

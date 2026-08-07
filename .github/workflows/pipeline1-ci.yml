@@ -2,14 +2,14 @@ name: Pipeline 1 - Integracao Continua
 
 on:
   push:
-    branches: [ "main", "develop" ]
+    branches: ["main", "develop"]
   pull_request:
-    branches: [ "main", "develop" ]
+    branches: ["main", "develop"]
 
 jobs:
   build-e-validacao:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Realizar Checkout do codigo
         uses: actions/checkout@v4
@@ -17,8 +17,8 @@ jobs:
       - name: Configurar Node.js e Cache NPM
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm' # Atende ao requisito de "cache npm"
+          node-version: "20"
+          cache: "npm" # Atende ao requisito de "cache npm"
 
       - name: Instalar dependencias
         run: npm install

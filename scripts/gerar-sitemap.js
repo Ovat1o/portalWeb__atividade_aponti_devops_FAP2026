@@ -1,17 +1,11 @@
 const fs = require("fs");
 
-const paginas = [
-    "/",
-    "/cursos.html",
-    "/contato.html"
-];
+const paginas = ["/", "/cursos.html", "/contato.html"];
 
 let xml = "<urlset>\n";
 
-paginas.forEach(p=>{
-
-    xml += `<url><loc>${p}</loc></url>\n`;
-
+paginas.forEach((p) => {
+  xml += `<url><loc>${p}</loc></url>\n`;
 });
 
 xml += "</urlset>";
