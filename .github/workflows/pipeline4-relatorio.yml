@@ -1,30 +1,29 @@
-name: Gerar Relatório (Manual)
+name: Pipeline 4 - Gerar Relatorios
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch: # Habilita a execucao manual na aba "Actions"
 
 jobs:
-  relatorio:
-  runs-on: ubuntu-latest
+  gerar-e-salvar:
+    runs-on: ubuntu-latest
 
-  steps:
-    - name: Checkout do código
-      uses: actions/checkout@v4
+    steps:
+      - name: Realizar Checkout do codigo
+        uses: actions/checkout@v4
 
-    - name: Configurar Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
 
-    - name: Instalar dependências
-      run: npm ci
+      - name: Instalar dependencias
+        run: npm install
 
-    - name: Executar script de estatíticas
-      run: npm run stats
+      - name: Executar script de relatorio
+        run: npm run stats
 
-    - name: Publicar relatório como artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: relatorio-estaticas
-        path: reports/estatisticas.json
-        if-no-files-found: warn
+      - name: Upload da pasta de Relatorios (Artifact)
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorios-gerados # Nome do arquivo que sera baixado no GitHub
+          path: reports/ # Caminho da pasta que sera zipada e salva

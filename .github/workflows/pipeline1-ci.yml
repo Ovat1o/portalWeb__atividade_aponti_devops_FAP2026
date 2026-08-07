@@ -1,39 +1,35 @@
-name: Pipeline 1 - CI portalWeb
+name: Pipeline 1 - Integracao Continua
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main", "develop"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main", "develop"]
 
 jobs:
-  build-and-test:
+  build-e-validacao:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Executar checkout
-      - name: Checkout do repositório
+      - name: Realizar Checkout do codigo
         uses: actions/checkout@v4
 
-      # 2 e 3. Executar setup-node e cache npm
-      - name: Configurar Node.js e habilitar Cache
+      - name: Configurar Node.js e Cache NPM
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Substitua pela versão que seu grupo usa (ex: 18, 20, 22)
-          cache: 'npm'
+          node-version: "20"
+          cache: "npm" # Atende ao requisito de "cache npm"
 
-      # 4. Executar npm install
-      - name: Instalar dependências
+      - name: Instalar dependencias
         run: npm install
 
-      # 5. Executar eslint
-      - name: Checar código com ESLint
-        run: npx eslint .
+      - name: Executar Eslint (Lint)
+        run: npm run lint
 
-      # 6. Executar prettier
-      - name: Checar formatação com Prettier
-        run: npx prettier --check .
+      - name: Executar Prettier (Formatacao)
+        run: npm run format
 
-      # 7. Executar build
-      - name: Build do projeto
-        run: npm run build
+      - name: Executar Build
+        run: |
+          mkdir -p dist
+          npm run build
