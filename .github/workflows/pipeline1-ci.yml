@@ -30,4 +30,6 @@ jobs:
         run: npm run format
 
       - name: Executar Build
-        run: npm run build
+        run: |
+          mkdir -p dist
+          npm run build
